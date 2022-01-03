@@ -27,7 +27,7 @@ class Bot(commands.Bot):
                         await m.delete()
                         await m.channel.send('You are breaking the chain!', delete_after=5)
 
-    self.load_extension('jishaku')
+
 
 bot = Bot()
 
@@ -40,6 +40,6 @@ async def set(ctx, chain_channel: discord.TextChannel):
     else:
         mongoClient.upldate_one({'_id': ctx.guild.id}, {'$set': {'channel': chain_channel.id}})
     await ctx.send(f'The chain channel has been set to {chain_channel.mention}')
-
+bot.load_extension('jishaku')
 bot.run(os.environ['ChainBotToken'])
 
