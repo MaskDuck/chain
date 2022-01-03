@@ -10,22 +10,26 @@ mongoClient = MongoClient(os.environ['mongolink']).ChainBot.ChainBot
 
 bot = commands.Bot(command_prefix = 'chain ', activity=discord.Game('dont break the chain ty'), status=discord.Status.idle)
 @bot.event
-async def on_message(m):
-    channel_id = mongoClient.find_one({'_id': m.guild.id})['channel']
-    if m.channel.id == channel_id:
-        messages = await m.channel.history(limit=4).flatten()
-        messages.pop(m)
+async def on_message(message):
+    try:
+        channel_id = mongoClient.find_one({'_id': message.guild.id})['channel']
+    except:
+        channel_id = None
+
+    if message.channel.id == channel_id:
+        messages = await message.channel.history(limit=4).flatten()
+        messages.pop(message)
         for ms in messages:
             if ms.content == messages[0].content:
                 pass
             else:
-                if m.content == messages[0].content:
+                if message.content == messages[0].content:
                     pass
                 else:
-                    await m.delete()
-                    await m.channel.send('You are breaking the chain!', delete_after=5)
+                    await message.delete()
+                    await message.channel.send('You are breaking the chain!', delete_after=5)
     else:
-        await bot.process_commands(m)
+        await bot.process_commands(message)
 
 
 
