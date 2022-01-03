@@ -19,7 +19,7 @@ async def on_message(message):
 
     if message.channel.id == channel_id:
         messages = await message.channel.history(limit=4).flatten()
-        messages.pop(message)
+        messages.remove(message)
         for ms in messages:
             if ms.content == messages[0].content:
                 pass
