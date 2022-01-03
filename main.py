@@ -8,7 +8,8 @@ import os
 
 mongoClient = MongoClient(os.environ['mongolink']).ChainBot.ChainBot
 
-bot = commands.Bot(command_prefix = 'chain ', activity=discord.Game('dont break the chain ty'), status=discord.Status.idle)
+bot = commands.Bot(command_prefix = 'chain ', activity=discord.Game('dont break the chain ty'), status=discord.Status.idle)\
+
 @bot.event
 async def on_message(message):
     try:
