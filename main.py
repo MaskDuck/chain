@@ -16,7 +16,7 @@ async def on_message(message):
         channel_id = mongoClient.find_one({'_id': message.guild.id})['channel']
     except:
         channel_id = None
-    if message.author == client.user:
+    if message.author == bot.user:
         pass
     else:
 
