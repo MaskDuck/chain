@@ -16,21 +16,24 @@ async def on_message(message):
         channel_id = mongoClient.find_one({'_id': message.guild.id})['channel']
     except:
         channel_id = None
+    if message.author = client.user:
+        pass
+    else:
 
-    if message.channel.id == channel_id:
-        messages = await message.channel.history(limit=4).flatten()
-        messages.remove(message)
-        for ms in messages:
-            if ms.content == messages[0].content:
-                pass
-            else:
-                if message.content == messages[0].content:
+        if message.channel.id == channel_id:
+            messages = await message.channel.history(limit=4).flatten()
+            messages.remove(message)
+            for ms in messages:
+                if ms.content == messages[0].content:
                     pass
                 else:
-                    await message.delete()
-                    await message.channel.send('You are breaking the chain!', delete_after=5)
-    else:
-        await bot.process_commands(message)
+                    if message.content == messages[0].content:
+                        pass
+                    else:
+                        await message.delete()
+                        await message.channel.send('You are breaking the chain!', delete_after=5)
+        else:
+            await bot.process_commands(message)
 
 
 
