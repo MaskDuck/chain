@@ -27,6 +27,8 @@ class Bot(commands.Bot):
                         await m.delete()
                         await m.channel.send('You are breaking the chain!', delete_after=5)
 
+    self.load_extension('jishaku')
+
 bot = Bot()
 
 @bot.command()
