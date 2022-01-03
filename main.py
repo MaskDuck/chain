@@ -6,7 +6,7 @@ import jishaku
 from pymongo import MongoClient
 import os
 
-mongoClient = pymongo.MongoClient(os.environ['mongolink']).ChainBot.ChainBot
+mongoClient = MongoClient(os.environ['mongolink']).ChainBot.ChainBot
 
 class Bot(commands.Bot):
     def __init__(self):
