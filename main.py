@@ -30,7 +30,10 @@ async def on_message(message):
                     if message.content == messages[0].content:
                         pass
                     else:
-                        await message.delete()
+                        try:
+                            await message.delete()
+                        except:
+                            pass
                         await message.channel.send('You are breaking the chain!', delete_after=5)
         else:
             await bot.process_commands(message)
@@ -39,6 +42,7 @@ async def on_message(message):
 
 
 @bot.command()
+@commands.has_permissions(administrator=True)
 async def set(ctx, chain_channel: discord.TextChannel):
     result = mongoClient.find_one({'_id': ctx.guild.id})
     if result is None:
