@@ -19,7 +19,6 @@ async def on_message(message):
     if message.author == bot.user:
         pass
     else:
-
         if message.channel.id == channel_id:
             messages = await message.channel.history(limit=4).flatten()
             messages.remove(message)
@@ -39,18 +38,7 @@ async def on_message(message):
             await bot.process_commands(message)
 
 
-
-
-@bot.command()
-@commands.has_permissions(administrator=True)
-async def set(ctx, chain_channel: discord.TextChannel):
-    result = mongoClient.find_one({'_id': ctx.guild.id})
-    if result is None:
-        data = {'_id': ctx.guild.id, 'channel': chain_channel.id}
-        mongoClient.insert_one(data)
-    else:
-        mongoClient.update_one({'_id': ctx.guild.id}, {'$set': {'channel': chain_channel.id}})
-    await ctx.send(f'The chain channel has been set to {chain_channel.mention}')
 bot.load_extension('jishaku')
 bot.run(os.environ['ChainBotToken'])
+
 
