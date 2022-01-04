@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 
+from pymongo import MongoClient
+
 mongoClient = MongoClient(os.environ['mongolink']).ChainBot.ChainBot
 
 class Config(commands.Cog):
