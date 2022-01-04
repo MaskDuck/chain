@@ -23,7 +23,7 @@ async def on_message(message):
             messages = await message.channel.history(limit=4).flatten()
             messages.remove(message)
             for ms in messages:
-                if ms.content == messages[0].content:
+                if all(ms.content == messages[0].content):
                     pass
                 else:
                     if message.content == messages[0].content:
@@ -37,6 +37,9 @@ async def on_message(message):
         else:
             await bot.process_commands(message)
 
+for filename in os.listdir("./cogs"):
+    if filename.endswith(".py"):
+        bot.load_extension(f"cogs.{filename[:-3]}")
 
 bot.load_extension('jishaku')
 bot.run(os.environ['ChainBotToken'])

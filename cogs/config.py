@@ -3,7 +3,7 @@ from discord.ext import commands
 
 mongoClient = MongoClient(os.environ['mongolink']).ChainBot.ChainBot
 
-class Cog(commands.Cog):
+class Config(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.mongoClient = mongoClient
@@ -20,6 +20,9 @@ class Cog(commands.Cog):
         await ctx.send(f'The chain channel has been set to {chain_channel.mention}')
 
     @commands.command()
-    async def unset(self, ctx, chain_channel: discord.TextChannel):
+    async def unset(self, ctx):
         result = self.mongoClient.find_one({'id': ctx.guild.id})
+
+def setup(bot):
+    bot.add_cog(Config(bot))
 
