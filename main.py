@@ -23,7 +23,7 @@ async def on_message(message):
             messages = await message.channel.history(limit=4).flatten()
             messages.remove(message)
             for ms in messages:
-                if all(ms.content == messages[0].content):
+                if list.count(ms.content) == 3:
                     pass
                 else:
                     if message.content == messages[0].content:
