@@ -11,7 +11,8 @@ class Config(commands.Cog):
         self.mongoClient = mongoClient
 
     @commands.command()
-    @commands.has_permissions(administrator=True)
+    @commands.has_permissions(manage_channels=True)
+    @commands.has_permissions(manage_messages=True)
     async def set(self, ctx, chain_channel: discord.TextChannel):
         result = self.mongoClient.find_one({'_id': ctx.guild.id})
         if result is None:
@@ -22,8 +23,11 @@ class Config(commands.Cog):
         await ctx.send(f'The chain channel has been set to {chain_channel.mention}')
 
     @commands.command()
+    @commands.has_permissions(manage_channels=True)
+    @commands.has_permissions(manage_messages=True)
     async def unset(self, ctx):
         result = self.mongoClient.find_one({'id': ctx.guild.id})
+        await self.mongoClient.delete(result)
 
 def setup(bot):
     bot.add_cog(Config(bot))

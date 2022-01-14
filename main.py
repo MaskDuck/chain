@@ -3,12 +3,17 @@ from discord.ext import commands
 
 import jishaku
 
+
+
 from pymongo import MongoClient
 import os
 
 mongoClient = MongoClient(os.environ['mongolink']).ChainBot.ChainBot
 
-bot = commands.Bot(command_prefix = 'chain ', activity=discord.Game('dont break the chain ty'), status=discord.Status.idle)\
+intents = discord.Intents.default()
+intents.members = True
+
+bot = commands.Bot(command_prefix = ['chain ', ':chains: ', '⛓️ ', '⛓️'], activity=discord.Game('dont break the chain ty'), status=discord.Status.idle, intents=intents)
 
 @bot.event
 async def on_message(message):
@@ -33,7 +38,7 @@ async def on_message(message):
                             await message.delete()
                         except:
                             pass
-                        await message.channel.send('You are breaking the chain!', delete_after=5)
+                        await message.channel.send('You are breaking the chain!', delete_after=2)
         else:
             await bot.process_commands(message)
 
@@ -42,6 +47,9 @@ for filename in os.listdir("./cogs"):
         bot.load_extension(f"cogs.{filename[:-3]}")
 
 bot.load_extension('jishaku')
+
+keep_alive()
+
 bot.run(os.environ['ChainBotToken'])
 
 
